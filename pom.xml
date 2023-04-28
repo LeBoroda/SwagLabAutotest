@@ -17,6 +17,8 @@
         <logback-classic.version>1.4.6</logback-classic.version>
         <surefire.version>3.0.0</surefire.version>
         <checkstyle.version>3.2.1</checkstyle.version>
+        <browser>firefox</browser>
+        <base.url>https://www.saucedemo.com</base.url>
     </properties>
     <dependencies>
         <dependency>
@@ -51,6 +53,12 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback-classic.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.3</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
