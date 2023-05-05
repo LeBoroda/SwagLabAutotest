@@ -17,7 +17,7 @@
         <logback-classic.version>1.4.6</logback-classic.version>
         <surefire.version>3.0.0</surefire.version>
         <checkstyle.version>3.2.1</checkstyle.version>
-        <browser>firefox</browser>
+        <browser>chrome</browser>
         <base.url>https://www.saucedemo.com</base.url>
     </properties>
     <dependencies>
