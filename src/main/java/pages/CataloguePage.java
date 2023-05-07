@@ -17,7 +17,7 @@ public class CataloguePage extends AbsPage {
     private final String catalogueItemSelector = ".inventory_item";
     private final String tileInfoSelectorTemplate = "%s:nth-child(%d)";
     private final LoginBlockComponent loginBlockComponent = new LoginBlockComponent(driver);
-    private final CatalogueTileComponent catalogueTileComponent= new CatalogueTileComponent(driver);
+    private final CatalogueTileComponent catalogueTileComponent = new CatalogueTileComponent(driver);
     private ItemPage itemPage;
 
     public CataloguePage(WebDriver driver) {
@@ -70,8 +70,53 @@ public class CataloguePage extends AbsPage {
         new PopUpMenuComponent(driver).logOut();
     }
 
-    public void runStandardCheckoutTest() {
+    public CataloguePage runStandardCheckoutTest() {
         loginBlockComponent.standardUserLogin();
+        shoppingCartCheckout();
+        new PopUpMenuComponent(driver)
+                .logOut();
+        return this;
+    }
+
+    public CataloguePage runGlitchCheckoutTest() {
+        loginBlockComponent.glitchUserLogin();
+        try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+            shoppingCartCheckout();
+            new PopUpMenuComponent(driver)
+                    .logOut();
+        } finally {
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        }
+        return this;
+    }
+
+    public void runProblemCheckoutTest() {
+        loginBlockComponent.problemUserLogin();
+        List<WebElement> catalogueItems = $$(By.cssSelector(catalogueItemSelector));
+        assert catalogueItems.size() != 0;
+        int addedItems = 0;
+        for (int i = 0; i < catalogueItems.size(); i++) {
+            String tileInfoSelector = String.format(tileInfoSelectorTemplate, catalogueItemSelector, i + 1);
+            catalogueTileComponent.getTileInfo(tileInfoSelector);
+            String pagePath = catalogueTileComponent.getItemId(tileInfoSelector);
+
+            if (catalogueTileComponent.addItemToCartFromCatalogue()) {
+                addedItems++;
+            }
+//            catalogueTileComponent.goToItemPage(tileInfoSelector);
+//            itemPage = new ItemPage(driver, pagePath);
+//            itemPage.checkItemAddedToCart(addedItems);
+        }
+        new CatalogueHeaderComponent(driver)
+                .checkProblemCartIcon(addedItems)
+                .goToCart();
+        new ShoppingCartPage(driver)
+                .checkProblemCart();
+    }
+
+
+    public void shoppingCartCheckout() {
         new PopUpMenuComponent(driver).resetAppState();
         List<WebElement> catalogueItems = $$(By.cssSelector(catalogueItemSelector));
         assert catalogueItems.size() != 0;
@@ -86,10 +131,10 @@ public class CataloguePage extends AbsPage {
             itemPage = new ItemPage(driver, pagePath);
             itemPage.checkItemAddedToCart(addedItems);
         }
-        new CatalogueHeaderComponent(driver).checkCartIcon(addedItems);
-        new CatalogueHeaderComponent(driver).goToCart();
-        new ShoppingCartPage(driver).checkCart();
-        new PopUpMenuComponent(driver).logOut();
+        new CatalogueHeaderComponent(driver)
+                .checkCartIcon(addedItems)
+                .goToCart();
+        new ShoppingCartPage(driver)
+                .checkCart();
     }
-
 }

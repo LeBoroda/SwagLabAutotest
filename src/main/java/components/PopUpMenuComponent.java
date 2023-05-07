@@ -3,12 +3,13 @@ package components;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class PopUpMenuComponent extends AbsComponent{
+public class PopUpMenuComponent extends AbsComponent {
     private String popUpMenuComponentButtonSelector = "#react-burger-menu-btn";
     private String logOutButtonSelector = "#logout_sidebar_link";
 
     private String resetAppStateButtonSelector = "#reset_sidebar_link";
     private String closePopupMenuButtonSelector = "#react-burger-cross-btn";
+
     public PopUpMenuComponent(WebDriver driver) {
         super(driver);
     }

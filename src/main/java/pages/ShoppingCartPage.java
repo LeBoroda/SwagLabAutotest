@@ -5,13 +5,16 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class ShoppingCartPage extends AbsPage{
+public class ShoppingCartPage extends AbsPage {
     private String cartItemSelector = ".cart_item";
     private String checkoutButton = "#checkout";
     CatalogueHeaderComponent catalogueHeaderComponent = new CatalogueHeaderComponent(driver);
+
     public ShoppingCartPage(WebDriver driver) {
         super(driver, "/cart.html");
     }
@@ -21,5 +24,12 @@ public class ShoppingCartPage extends AbsPage{
         Assertions.assertEquals(catalogueHeaderComponent.getCartIconNumber(), cartItemsList.size());
         $(By.cssSelector(checkoutButton)).click();
         new CheckoutStepOnePage(driver).getBuyerInfo();
+    }
+
+    public void checkProblemCart() {
+        List<WebElement> cartItemsList = $$(By.cssSelector(cartItemSelector));
+        Assertions.assertEquals(catalogueHeaderComponent.getCartIconNumber(), cartItemsList.size());
+        $(By.cssSelector(checkoutButton)).click();
+        new CheckoutStepOnePage(driver).getProblemBuyerInfo();
     }
 }

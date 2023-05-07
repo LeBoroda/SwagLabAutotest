@@ -60,6 +60,8 @@ public class SwagLabTest {
         new MainPage(driver)
                 .open();
         new CataloguePage(driver)
-                .runStandardCheckoutTest();
+                .runStandardCheckoutTest()
+                .runGlitchCheckoutTest()
+                .runProblemCheckoutTest();
     }
 }

@@ -53,7 +53,7 @@ public class ItemPage extends AbsPage {
     }
 
     public void checkItemAddedToCart(int itemsInCart) {
-        if($(By.cssSelector(removeItemFromCartButtonSelector)).getText().equals("Remove")) {
+        if ($(By.cssSelector(removeItemFromCartButtonSelector)).getText().equals("Remove")) {
             Assertions.assertEquals(itemsInCart, Integer.parseInt($(By.cssSelector(shoppingCartBadgeSelector)).getText()));
         } else {
             Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(By.cssSelector(addItemToCartButtonSelector)))));

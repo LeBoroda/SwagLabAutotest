@@ -1,5 +1,6 @@
 package components;
 
+import logging.ILoggable;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +10,7 @@ import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CatalogueTileComponent extends AbsComponent{
+public class CatalogueTileComponent extends AbsComponent implements ILoggable {
     private final String itemImgSelector = ".inventory_item_img";
     private final String itemNameSelector = ".inventory_item_name";
     private final String itemDescriptionSelector = ".inventory_item_desc";
@@ -21,6 +22,7 @@ public class CatalogueTileComponent extends AbsComponent{
     private String itemName;
     private String itemDescription;
     private String itemPrice;
+
     public CatalogueTileComponent(WebDriver driver) {
         super(driver);
     }
@@ -40,23 +42,25 @@ public class CatalogueTileComponent extends AbsComponent{
         String elementId = $(By.cssSelector(String.format(String.format(itemIdSelector, tileSelector)))).getCssValue("id");
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(elementId);
-        if(matcher.find()){
+        if (matcher.find()) {
             return matcher.group();
         } else {
             return null;
         }
     }
 
-    public void addItemToCartFromCatalogue() {
+    public boolean addItemToCartFromCatalogue() {
         WebElement itemButton = $(By.cssSelector(addItemToCartSelector));
         String buttonText = itemButton.getText();
-        if(buttonText.equals("Add to cart")) {
+        if (buttonText.equals("Add to cart")) {
             Assertions.assertEquals("Add to cart", itemButton.getText());
             itemButton.click();
             waiter.waitForVisibility(By.cssSelector(removeItemFromCartSelector));
-            Assertions.assertEquals("Remove",  $(By.cssSelector(removeItemFromCartSelector)).getText());
-        } else if (buttonText.equals("Remove")) {
-            System.out.println("Item is not added");
+            Assertions.assertEquals("Remove", $(By.cssSelector(removeItemFromCartSelector)).getText());
+            return true;
+        } else {
+            log().info("Item is not added to cart");
+            return false;
         }
     }
 

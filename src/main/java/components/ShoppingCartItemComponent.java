@@ -6,9 +6,10 @@ import org.openqa.selenium.WebDriver;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ShoppingCartItemComponent extends AbsComponent{
+public class ShoppingCartItemComponent extends AbsComponent {
 
     private String cartItemPriceSelectorTemplate = ".cart_list :nth-child(%d)%s .inventory_item_price";
+
     public ShoppingCartItemComponent(WebDriver driver) {
         super(driver);
     }
@@ -18,6 +19,7 @@ public class ShoppingCartItemComponent extends AbsComponent{
         double price = extractPrice(stringPrice);
         return price;
     }
+
     private double extractPrice(String stringPrice) {
         Pattern pattern = Pattern.compile("\\d+\\.\\d+");
         Matcher matcher = pattern.matcher(stringPrice);

@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
-public class LoginBlockComponent extends AbsComponent{
+public class LoginBlockComponent extends AbsComponent {
 
     private String usernameFieldIdSelector = "user-name";
     private String passwordFIeldIdSelector = "password";
@@ -34,8 +34,8 @@ public class LoginBlockComponent extends AbsComponent{
     private WebElement loginButton = $(By.id(loginButtonIdSelector));
 
     public LoginBlockComponent runBadPasswordLoginTest() {
-        for(String username : usernames) {
-            for(String badPassword : badPasswords){
+        for (String username : usernames) {
+            for (String badPassword : badPasswords) {
                 logIn(username, badPassword);
                 Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(By.className(errorMessageClassSelector)))));
                 $(By.className(errorButtonClassSelector)).click();
@@ -45,8 +45,8 @@ public class LoginBlockComponent extends AbsComponent{
     }
 
     public LoginBlockComponent runBadUsernameLoginTest() {
-        for(String badUsername : badUsernames) {
-            for(String password : passwords){
+        for (String badUsername : badUsernames) {
+            for (String password : passwords) {
                 logIn(badUsername, password);
                 Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(By.className(errorMessageClassSelector)))));
                 $(By.className(errorButtonClassSelector)).click();
@@ -81,7 +81,7 @@ public class LoginBlockComponent extends AbsComponent{
     public LoginBlockComponent runLockedOutUserLoginTest() {
         username = usernames.get(1);
         logIn(username, password);
-        Assertions.assertEquals("Epic sadface: Sorry, this user has been locked out.",$(By.className(errorMessageClassSelector)).getText());
+        Assertions.assertEquals("Epic sadface: Sorry, this user has been locked out.", $(By.className(errorMessageClassSelector)).getText());
         $(By.className(errorButtonClassSelector)).click();
         return this;
     }
@@ -99,8 +99,9 @@ public class LoginBlockComponent extends AbsComponent{
         new PopUpMenuComponent(driver).logOut();
         return this;
     }
+
     public LoginBlockComponent runGlitchUserLoginTest() {
-       glitchUserLogin();
+        glitchUserLogin();
         try {
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
             Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf(new CatalogueHeaderComponent(driver).checkHeaderVisibility())));
@@ -115,6 +116,7 @@ public class LoginBlockComponent extends AbsComponent{
         username = usernames.get(0);
         logIn(username, password);
     }
+
     public void problemUserLogin() {
         username = usernames.get(2);
         logIn(username, password);
