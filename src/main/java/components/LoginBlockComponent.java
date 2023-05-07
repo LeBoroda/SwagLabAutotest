@@ -87,23 +87,20 @@ public class LoginBlockComponent extends AbsComponent{
     }
 
     public LoginBlockComponent runStandardUserLoginTest() {
-        username = usernames.get(0);
-        logIn(username, password);
+        standardUserLogin();
         Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf(new CatalogueHeaderComponent(driver).checkHeaderVisibility())));
         new PopUpMenuComponent(driver).logOut();
         return this;
     }
 
     public LoginBlockComponent runProblemUserLoginTest() {
-        username = usernames.get(2);
-        logIn(username, password);
+        problemUserLogin();
         Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf(new CatalogueHeaderComponent(driver).checkHeaderVisibility())));
         new PopUpMenuComponent(driver).logOut();
         return this;
     }
     public LoginBlockComponent runGlitchUserLoginTest() {
-        username = usernames.get(3);
-        logIn(username, password);
+       glitchUserLogin();
         try {
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
             Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf(new CatalogueHeaderComponent(driver).checkHeaderVisibility())));

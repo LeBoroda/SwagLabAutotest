@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import pages.CataloguePage;
 import pages.MainPage;
 
-public class SwagLabLoginTest {
+public class SwagLabTest {
     private WebDriver driver;
 
     @BeforeAll
@@ -49,13 +49,17 @@ public class SwagLabLoginTest {
     public void testSwagLabCatalogue() {
         new MainPage(driver)
                 .open();
-        LoginBlockComponent loginBlockComponent = new LoginBlockComponent(driver);
-        loginBlockComponent.standardUserLogin();
-        CataloguePage cataloguePage = new CataloguePage(driver);
-        cataloguePage.runStandardCatalogueTest();
-        loginBlockComponent.glitchUserLogin();
-        cataloguePage.runGlitchCatalogueTest();
-        loginBlockComponent.problemUserLogin();
-        cataloguePage.runProblemCatalogueTest();
+        new CataloguePage(driver)
+                .runStandardCatalogueTest()
+                .runGlitchCatalogueTest()
+                .runProblemCatalogueTest();
+    }
+
+    @Test
+    public void testItemCheckout() {
+        new MainPage(driver)
+                .open();
+        new CataloguePage(driver)
+                .runStandardCheckoutTest();
     }
 }

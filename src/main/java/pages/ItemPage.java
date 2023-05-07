@@ -4,6 +4,7 @@ import components.CatalogueTileComponent;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,9 @@ public class ItemPage extends AbsPage {
     private String itemDescriptionSelector = ".inventory_details_desc";
     private String itemPriceSelector = ".inventory_details_price";
     private String returnToCatalogueButtonSelector = "#back-to-products";
+    private String removeItemFromCartButtonSelector = "button[id*='remove']";
+    private String addItemToCartButtonSelector = "button[id*='add-to-cart']";
+    private String shoppingCartBadgeSelector = ".shopping_cart_badge";
 
     public ItemPage(WebDriver driver, String itemId) {
         super(driver, "/inventory-item.html?id=" + itemId);
@@ -46,6 +50,15 @@ public class ItemPage extends AbsPage {
         Assertions.assertNotEquals(catalogueTileComponent.getItemDescription(), $(By.cssSelector(itemDescriptionSelector)).getText());
         Assertions.assertNotEquals(catalogueTileComponent.getItemPrice(), $(By.cssSelector(itemPriceSelector)).getText());
         returnToCatalogue();
+    }
+
+    public void checkItemAddedToCart(int itemsInCart) {
+        if($(By.cssSelector(removeItemFromCartButtonSelector)).getText().equals("Remove")) {
+            Assertions.assertEquals(itemsInCart, Integer.parseInt($(By.cssSelector(shoppingCartBadgeSelector)).getText()));
+        } else {
+            Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(By.cssSelector(addItemToCartButtonSelector)))));
+        }
+        driver.navigate().back();
     }
 
 }
