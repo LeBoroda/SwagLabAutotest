@@ -1,5 +1,6 @@
 package components;
 
+import logging.ILoggable;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,22 +11,22 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
-public class LoginBlockComponent extends AbsComponent {
+public final class LoginBlockComponent extends AbsComponent implements ILoggable {
 
-    private String usernameFieldIdSelector = "user-name";
-    private String passwordFIeldIdSelector = "password";
-    private String loginButtonIdSelector = "login-button";
-    private String errorMessageClassSelector = "error-message-container";
-    private String errorButtonClassSelector = "error-button";
-    private List<String> badPasswords = Arrays.asList("", " ", "xx");
-    private List<String> badUsernames = Arrays.asList("xx", " ", "");
-    private LoginCredentialsBlockComponent lcb = new LoginCredentialsBlockComponent(driver);
-    private List<String> usernames = lcb.getUserNames();
-    private List<String> passwords = lcb.getPasswords();
+    private final String usernameFieldIdSelector = "user-name";
+    private final String passwordFIeldIdSelector = "password";
+    private final String loginButtonIdSelector = "login-button";
+    private final String errorMessageClassSelector = "error-message-container";
+    private final String errorButtonClassSelector = "error-button";
+    private final List<String> badPasswords = Arrays.asList("", " ", "xx");
+    private final List<String> badUsernames = Arrays.asList("xx", " ", "");
+    private final LoginCredentialsBlockComponent lcb = new LoginCredentialsBlockComponent(driver);
+    private final List<String> usernames = lcb.getUserNames();
+    private final List<String> passwords = lcb.getPasswords();
     private String username;
-    private String password = passwords.get(0);
+    private final String password = passwords.get(0);
 
-    public LoginBlockComponent(WebDriver driver) {
+    public LoginBlockComponent(final WebDriver driver) {
         super(driver);
     }
 
@@ -34,6 +35,7 @@ public class LoginBlockComponent extends AbsComponent {
     private WebElement loginButton = $(By.id(loginButtonIdSelector));
 
     public LoginBlockComponent runBadPasswordLoginTest() {
+        log().info("Running login test with wrong password");
         for (String username : usernames) {
             for (String badPassword : badPasswords) {
                 logIn(username, badPassword);
@@ -45,6 +47,7 @@ public class LoginBlockComponent extends AbsComponent {
     }
 
     public LoginBlockComponent runBadUsernameLoginTest() {
+        log().info("Running login test with wrong username");
         for (String badUsername : badUsernames) {
             for (String password : passwords) {
                 logIn(badUsername, password);
@@ -56,6 +59,7 @@ public class LoginBlockComponent extends AbsComponent {
     }
 
     public LoginBlockComponent runEmptyFieldLoginTest() {
+        log().info("Running login test with empty fields");
         usernameField = $(By.id(usernameFieldIdSelector));
         usernameField.clear();
         usernameField.sendKeys("mamba");
@@ -79,6 +83,7 @@ public class LoginBlockComponent extends AbsComponent {
     }
 
     public LoginBlockComponent runLockedOutUserLoginTest() {
+        log().info("Running login test for locked out user");
         username = usernames.get(1);
         logIn(username, password);
         Assertions.assertEquals("Epic sadface: Sorry, this user has been locked out.", $(By.className(errorMessageClassSelector)).getText());
@@ -87,6 +92,7 @@ public class LoginBlockComponent extends AbsComponent {
     }
 
     public LoginBlockComponent runStandardUserLoginTest() {
+        log().info("Running login test for standard user");
         standardUserLogin();
         Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf(new CatalogueHeaderComponent(driver).checkHeaderVisibility())));
         new PopUpMenuComponent(driver).logOut();
@@ -94,6 +100,7 @@ public class LoginBlockComponent extends AbsComponent {
     }
 
     public LoginBlockComponent runProblemUserLoginTest() {
+        log().info("Running login test for problem user");
         problemUserLogin();
         Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf(new CatalogueHeaderComponent(driver).checkHeaderVisibility())));
         new PopUpMenuComponent(driver).logOut();
@@ -101,6 +108,7 @@ public class LoginBlockComponent extends AbsComponent {
     }
 
     public LoginBlockComponent runGlitchUserLoginTest() {
+        log().info("Running login test for glitch performance user");
         glitchUserLogin();
         try {
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
@@ -127,7 +135,7 @@ public class LoginBlockComponent extends AbsComponent {
         logIn(username, password);
     }
 
-    private void logIn(String username, String password) {
+    private void logIn(final String username, final String password) {
         usernameField = $(By.id(usernameFieldIdSelector));
         usernameField.clear();
         usernameField.sendKeys(username);

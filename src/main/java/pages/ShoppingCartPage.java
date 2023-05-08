@@ -5,17 +5,15 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class ShoppingCartPage extends AbsPage {
-    private String cartItemSelector = ".cart_item";
-    private String checkoutButton = "#checkout";
-    CatalogueHeaderComponent catalogueHeaderComponent = new CatalogueHeaderComponent(driver);
+public final class ShoppingCartPage extends AbsPage {
+    private final String cartItemSelector = ".cart_item";
+    private final String checkoutButton = "#checkout";
+    private final CatalogueHeaderComponent catalogueHeaderComponent = new CatalogueHeaderComponent(driver);
 
-    public ShoppingCartPage(WebDriver driver) {
+    public ShoppingCartPage(final WebDriver driver) {
         super(driver, "/cart.html");
     }
 

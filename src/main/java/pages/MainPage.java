@@ -2,8 +2,8 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 
-public class MainPage extends AbsPage {
-    public MainPage(WebDriver driver) {
+public final class MainPage extends AbsPage {
+    public MainPage(final WebDriver driver) {
         super(driver, "/");
     }
 }

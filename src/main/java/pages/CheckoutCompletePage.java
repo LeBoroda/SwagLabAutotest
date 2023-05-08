@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class CheckoutCompletePage extends AbsPage {
+public final class CheckoutCompletePage extends AbsPage {
 
-    private String backToCatalogueButtonSelector = "#back-to-products";
-    private String successMessageSelector = ".complete-header";
+    private final String backToCatalogueButtonSelector = "#back-to-products";
+    private final String successMessageSelector = ".complete-header";
 
-    public CheckoutCompletePage(WebDriver driver) {
+    public CheckoutCompletePage(final WebDriver driver) {
         super(driver, "/checkout-complete.html");
     }
 

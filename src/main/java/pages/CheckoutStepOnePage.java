@@ -5,16 +5,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class CheckoutStepOnePage extends AbsPage {
+public final class CheckoutStepOnePage extends AbsPage {
 
-    private String continueButtonSelector = ".submit-button";
-    private String errorMessageContainerSelector = ".error-message-container";
-    private String errorButtonSelector = ".error-button";
-    private String firstNameFieldSelector = "#first-name";
-    private String lastNameFieldSelector = "#last-name";
-    private String postalCodeFieldSelector = "#postal-code";
+    private final String continueButtonSelector = ".submit-button";
+    private final String errorMessageContainerSelector = ".error-message-container";
+    private final String errorButtonSelector = ".error-button";
+    private final String firstNameFieldSelector = "#first-name";
+    private final String lastNameFieldSelector = "#last-name";
+    private final String postalCodeFieldSelector = "#postal-code";
 
-    public CheckoutStepOnePage(WebDriver driver) {
+    public CheckoutStepOnePage(final WebDriver driver) {
         super(driver, "/checkout-step-one.html");
     }
 

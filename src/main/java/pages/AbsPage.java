@@ -8,7 +8,7 @@ public abstract class AbsPage extends PageObject implements ILoggable {
     private final String baseUrl = System.getProperty("base.url", "https://www.saucedemo.com/");
     private String path;
 
-    public AbsPage(WebDriver driver, String path) {
+    public AbsPage(final WebDriver driver, final String path) {
         super(driver);
         this.path = path;
     }

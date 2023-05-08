@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class WebDriverFactory implements IWebDriverFactory {
+public final class WebDriverFactory implements IWebDriverFactory {
     private final String browserName = System.getProperty("browser", "chrome");
 
     @Override

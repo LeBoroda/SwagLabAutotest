@@ -4,5 +4,14 @@
         "http://www.checkstyle.org/dtds/suppressions_1_0.dtd">
 
 <suppressions>
-
+    <suppress checks="LineLength" files="."/>
+    <suppress checks="JavadocPackage" files="."/>
+    <suppress checks="MissingJavadocMethod" files="."/>
+    <suppress checks="JavadocVariable" files="."/>
+    <suppress checks="HiddenField" files="."/>
+    <suppress checks="VisibilityModifier" files="PageObject"/>
+    <suppress checks="MagicNumber" files="."/>
+    <suppress checks="MethodName" files="."/>
+    <suppress checks="DesignForExtension" files="PageObject"/>
+    <suppress checks="DesignForExtension" files="AbsPage"/>
 </suppressions>

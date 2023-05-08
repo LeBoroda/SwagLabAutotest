@@ -4,7 +4,7 @@ public enum BrowserData {
     CHROME("chrome");
     private final String name;
 
-    BrowserData(String name) {
+    BrowserData(final String name) {
         this.name = name;
     }
 

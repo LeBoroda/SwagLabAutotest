@@ -12,17 +12,17 @@ public abstract class PageObject {
     protected WebDriver driver;
     protected CommonWaiter waiter;
 
-    public PageObject(WebDriver driver) {
+    public PageObject(final WebDriver driver) {
         this.driver = driver;
         waiter = new CommonWaiter(driver);
         PageFactory.initElements(driver, this);
     }
 
-    protected WebElement $(By by) {
+    protected WebElement $(final By by) {
         return driver.findElement(by);
     }
 
-    protected List<WebElement> $$(By by) {
+    protected List<WebElement> $$(final By by) {
         return driver.findElements(by);
     }
 

@@ -9,14 +9,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class CommonWaiter {
+public final class CommonWaiter {
     private final WebDriver driver;
 
-    public CommonWaiter(WebDriver driver) {
+    public CommonWaiter(final WebDriver driver) {
         this.driver = driver;
     }
 
-    public boolean waitForCondition(ExpectedCondition condition) {
+    public boolean waitForCondition(final ExpectedCondition condition) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         try {
             webDriverWait.until(condition);
@@ -26,7 +26,7 @@ public class CommonWaiter {
         }
     }
 
-    public void waitForVisibility(By locator) {
+    public void waitForVisibility(final By locator) {
         Assertions.assertTrue(waitForCondition(ExpectedConditions.visibilityOf(driver.findElement(locator))));
     }
 }

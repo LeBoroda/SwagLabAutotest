@@ -4,34 +4,27 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class LoginCredentialsBlockComponent extends AbsComponent {
-    private String usernameLocator = "//div[@id='login_credentials']";
-    private String passwordLocator = "//div[@class='login_password']";
+public final class LoginCredentialsBlockComponent extends AbsComponent {
+    private final String usernameLocator = "//div[@id='login_credentials']";
+    private final String passwordLocator = "//div[@class='login_password']";
 
-    public LoginCredentialsBlockComponent(WebDriver driver) {
+    public LoginCredentialsBlockComponent(final WebDriver driver) {
         super(driver);
     }
 
     public List<String> getPasswords() {
-        String passwords = $(By.xpath("//div[@class='login_password']")).getText();
+        String passwords = $(By.xpath(passwordLocator)).getText();
         String[] passwordsArray = passwords.split("\n");
-        List<String> result = new ArrayList<>();
-        for (int i = 1; i < passwordsArray.length; i++) {
-            result.add(passwordsArray[i]);
-        }
-        return result;
+        return new ArrayList<>(Arrays.asList(passwordsArray).subList(1, passwordsArray.length));
     }
 
     public List<String> getUserNames() {
-        String usernames = $(By.xpath("//div[@id='login_credentials']")).getText();
+        String usernames = $(By.xpath(usernameLocator)).getText();
         String[] userNameArray = usernames.split("\n");
-        List<String> result = new ArrayList<>();
-        for (int i = 1; i < userNameArray.length; i++) {
-            result.add(userNameArray[i]);
-        }
-        return result;
+        return new ArrayList<>(Arrays.asList(userNameArray).subList(1, userNameArray.length));
     }
 
 

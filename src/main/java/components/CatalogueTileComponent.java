@@ -6,11 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CatalogueTileComponent extends AbsComponent implements ILoggable {
+public final class CatalogueTileComponent extends AbsComponent implements ILoggable {
     private final String itemImgSelector = ".inventory_item_img";
     private final String itemNameSelector = ".inventory_item_name";
     private final String itemDescriptionSelector = ".inventory_item_desc";
@@ -23,22 +22,22 @@ public class CatalogueTileComponent extends AbsComponent implements ILoggable {
     private String itemDescription;
     private String itemPrice;
 
-    public CatalogueTileComponent(WebDriver driver) {
+    public CatalogueTileComponent(final WebDriver driver) {
         super(driver);
     }
 
-    public void getTileInfo(String tileSelector) {
+    public void getTileInfo(final String tileSelector) {
         itemImageLink = $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemImgSelector)))).getText();
         itemName = $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemNameSelector)))).getText();
         itemDescription = $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemDescriptionSelector)))).getText();
         itemPrice = $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemPriceSelector)))).getText();
     }
 
-    public void goToItemPage(String tileSelector) {
+    public void goToItemPage(final String tileSelector) {
         $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemNameSelector)))).click();
     }
 
-    public String getItemId(String tileSelector) {
+    public String getItemId(final String tileSelector) {
         String elementId = $(By.cssSelector(String.format(String.format(itemIdSelector, tileSelector)))).getCssValue("id");
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(elementId);

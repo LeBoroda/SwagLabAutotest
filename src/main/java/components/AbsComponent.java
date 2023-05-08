@@ -5,7 +5,7 @@ import pageobject.PageObject;
 
 public abstract class AbsComponent extends PageObject {
 
-    public AbsComponent(WebDriver driver) {
+    public AbsComponent(final WebDriver driver) {
         super(driver);
     }
 }

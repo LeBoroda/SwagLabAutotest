@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CheckoutStepTwoPage extends AbsPage {
+public final class CheckoutStepTwoPage extends AbsPage {
 
-    private String cartItemSelector = ".cart_item";
-    private String subtotalPriceSelector = ".summary_subtotal_label";
-    private String subtotalTaxSelector = ".summary_tax_label";
-    private String totalAmountSelector = ".summary_total_label";
-    private String finishButtonSelector = "#finish";
+    private final String cartItemSelector = ".cart_item";
+    private final String subtotalPriceSelector = ".summary_subtotal_label";
+    private final String subtotalTaxSelector = ".summary_tax_label";
+    private final String totalAmountSelector = ".summary_total_label";
+    private final String finishButtonSelector = "#finish";
 
-    public CheckoutStepTwoPage(WebDriver driver) {
+    public CheckoutStepTwoPage(final WebDriver driver) {
         super(driver, "/checkout-step-two.html");
     }
 
@@ -38,13 +38,12 @@ public class CheckoutStepTwoPage extends AbsPage {
         new CheckoutCompletePage(driver).goToCatalogue();
     }
 
-    private double getPriceFromString(String stringPrice) {
+    private double getPriceFromString(final String stringPrice) {
         Pattern pattern = Pattern.compile("\\d+\\.\\d+");
         Matcher matcher = pattern.matcher(stringPrice);
         if (matcher.find()) {
             String doubleString = matcher.group();
-            Double doubleValue = Double.parseDouble(doubleString);
-            return doubleValue;
+            return Double.parseDouble(doubleString);
         } else {
             return 0.0;
         }

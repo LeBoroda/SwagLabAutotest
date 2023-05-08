@@ -6,27 +6,25 @@ import org.openqa.selenium.WebDriver;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ShoppingCartItemComponent extends AbsComponent {
+public final class ShoppingCartItemComponent extends AbsComponent {
 
-    private String cartItemPriceSelectorTemplate = ".cart_list :nth-child(%d)%s .inventory_item_price";
+    private final String cartItemPriceSelectorTemplate = ".cart_list :nth-child(%d)%s .inventory_item_price";
 
-    public ShoppingCartItemComponent(WebDriver driver) {
+    public ShoppingCartItemComponent(final WebDriver driver) {
         super(driver);
     }
 
-    public double getItemPrice(int itemNumber, String selector) {
+    public double getItemPrice(final int itemNumber, final String selector) {
         String stringPrice = $(By.cssSelector(String.format(cartItemPriceSelectorTemplate, itemNumber, selector))).getText();
-        double price = extractPrice(stringPrice);
-        return price;
+        return extractPrice(stringPrice);
     }
 
-    private double extractPrice(String stringPrice) {
+    private double extractPrice(final String stringPrice) {
         Pattern pattern = Pattern.compile("\\d+\\.\\d+");
         Matcher matcher = pattern.matcher(stringPrice);
         if (matcher.find()) {
             String doubleString = matcher.group();
-            Double doubleValue = Double.parseDouble(doubleString);
-            return doubleValue;
+            return Double.parseDouble(doubleString);
         } else {
             return 0.0;
         }
