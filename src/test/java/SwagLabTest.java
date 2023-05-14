@@ -32,19 +32,25 @@ public class SwagLabTest {
     }
 
     @Test
-    public void testSwagLabLogin() {
+    public void testSwagLabErrorLogin() {
         new MainPage(driver)
                 .open();
         new LoginBlockComponent(driver)
                 .runEmptyFieldLoginTest()
                 .runBadPasswordLoginTest()
-                .runBadUsernameLoginTest()
-                .runLockedOutUserLoginTest()
+                .runBadUsernameLoginTest();
+    }
+
+    @Test
+    public void testSwagLabLogin() {
+        new MainPage(driver)
+                .open();
+        new LoginBlockComponent(driver)
                 .runStandardUserLoginTest()
+                .runLockedOutUserLoginTest()
                 .runProblemUserLoginTest()
                 .runGlitchUserLoginTest();
     }
-
     @Test
     public void testSwagLabCatalogue() {
         new MainPage(driver)
