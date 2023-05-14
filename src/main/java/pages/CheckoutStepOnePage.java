@@ -49,4 +49,5 @@ public final class CheckoutStepOnePage extends AbsPage {
         continueButton.click();
         Assertions.assertEquals("Error: Last Name is required", $(By.cssSelector(errorMessageContainerSelector)).getText());
     }
+
 }

@@ -48,4 +48,5 @@ public final class CheckoutStepTwoPage extends AbsPage {
             return 0.0;
         }
     }
+
 }

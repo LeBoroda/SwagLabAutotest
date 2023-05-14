@@ -27,5 +27,4 @@ public final class LoginCredentialsBlockComponent extends AbsComponent {
         return new ArrayList<>(Arrays.asList(userNameArray).subList(1, userNameArray.length));
     }
 
-
 }

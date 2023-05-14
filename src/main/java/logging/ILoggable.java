@@ -8,4 +8,5 @@ public interface ILoggable {
     default Logger log() {
         return LoggerFactory.getLogger(this.getClass());
     }
+
 }

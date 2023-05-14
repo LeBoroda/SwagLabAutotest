@@ -25,4 +25,5 @@ public final class PopUpMenuComponent extends AbsComponent {
         $(By.cssSelector(resetAppStateButtonSelector));
         $(By.cssSelector(closePopupMenuButtonSelector)).click();
     }
+
 }

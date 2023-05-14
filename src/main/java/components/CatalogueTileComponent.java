@@ -78,4 +78,5 @@ public final class CatalogueTileComponent extends AbsComponent implements ILogga
     public String getItemPrice() {
         return itemPrice;
     }
+
 }

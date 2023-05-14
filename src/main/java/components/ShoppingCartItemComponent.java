@@ -29,4 +29,5 @@ public final class ShoppingCartItemComponent extends AbsComponent {
             return 0.0;
         }
     }
+
 }

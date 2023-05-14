@@ -11,5 +11,5 @@ public enum BrowserData {
     public String getName() {
         return name;
     }
-}
 
+}

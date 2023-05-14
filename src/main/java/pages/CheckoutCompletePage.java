@@ -17,4 +17,5 @@ public final class CheckoutCompletePage extends AbsPage {
         Assertions.assertEquals("Thank you for your order!", $(By.cssSelector(successMessageSelector)).getText());
         $(By.cssSelector(backToCatalogueButtonSelector)).click();
     }
+
 }

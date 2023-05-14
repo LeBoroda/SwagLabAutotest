@@ -14,7 +14,7 @@ import java.util.List;
 public final class LoginBlockComponent extends AbsComponent implements ILoggable {
 
     private final String usernameFieldIdSelector = "user-name";
-    private final String passwordFIeldIdSelector = "password";
+    private final String passwordFieldIdSelector = "password";
     private final String loginButtonIdSelector = "login-button";
     private final String errorMessageClassSelector = "error-message-container";
     private final String errorButtonClassSelector = "error-button";
@@ -31,7 +31,7 @@ public final class LoginBlockComponent extends AbsComponent implements ILoggable
     }
 
     private WebElement usernameField = $(By.id(usernameFieldIdSelector));
-    private WebElement passwordField = $(By.id(passwordFIeldIdSelector));
+    private WebElement passwordField = $(By.id(passwordFieldIdSelector));
     private WebElement loginButton = $(By.id(loginButtonIdSelector));
 
     public LoginBlockComponent runBadPasswordLoginTest() {
@@ -63,7 +63,7 @@ public final class LoginBlockComponent extends AbsComponent implements ILoggable
         usernameField = $(By.id(usernameFieldIdSelector));
         usernameField.clear();
         usernameField.sendKeys("mamba");
-        passwordField = $(By.id(passwordFIeldIdSelector));
+        passwordField = $(By.id(passwordFieldIdSelector));
         passwordField.clear();
         loginButton = $(By.id(loginButtonIdSelector));
         loginButton.click();
@@ -72,7 +72,7 @@ public final class LoginBlockComponent extends AbsComponent implements ILoggable
         driver.navigate().refresh();
         usernameField = $(By.id(usernameFieldIdSelector));
         usernameField.clear();
-        passwordField = $(By.id(passwordFIeldIdSelector));
+        passwordField = $(By.id(passwordFieldIdSelector));
         passwordField.clear();
         passwordField.sendKeys("namba5");
         loginButton = $(By.id(loginButtonIdSelector));
@@ -139,7 +139,7 @@ public final class LoginBlockComponent extends AbsComponent implements ILoggable
         usernameField = $(By.id(usernameFieldIdSelector));
         usernameField.clear();
         usernameField.sendKeys(username);
-        passwordField = $(By.id(passwordFIeldIdSelector));
+        passwordField = $(By.id(passwordFieldIdSelector));
         passwordField.clear();
         passwordField.sendKeys(password);
         loginButton = $(By.id(loginButtonIdSelector));

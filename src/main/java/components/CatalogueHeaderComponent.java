@@ -40,7 +40,6 @@ public final class CatalogueHeaderComponent extends AbsComponent implements ILog
 
     public int getCartIconNumber() {
         return Integer.parseInt($(By.cssSelector(itemsInCartCounterSelector)).getText());
-
     }
-}
 
+}

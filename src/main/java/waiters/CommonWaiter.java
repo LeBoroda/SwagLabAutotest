@@ -29,4 +29,5 @@ public final class CommonWaiter {
     public void waitForVisibility(final By locator) {
         Assertions.assertTrue(waitForCondition(ExpectedConditions.visibilityOf(driver.findElement(locator))));
     }
+
 }

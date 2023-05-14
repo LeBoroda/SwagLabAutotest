@@ -30,4 +30,5 @@ public final class ShoppingCartPage extends AbsPage {
         $(By.cssSelector(checkoutButton)).click();
         new CheckoutStepOnePage(driver).getProblemBuyerInfo();
     }
+
 }

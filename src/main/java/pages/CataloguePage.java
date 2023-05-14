@@ -138,4 +138,5 @@ public final class CataloguePage extends AbsPage {
         new ShoppingCartPage(driver)
                 .checkCart();
     }
+
 }

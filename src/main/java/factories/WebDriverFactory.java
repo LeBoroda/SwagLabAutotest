@@ -20,4 +20,5 @@ public final class WebDriverFactory implements IWebDriverFactory {
                 throw new BrowserNotSupportedException(browserName);
         }
     }
+
 }
