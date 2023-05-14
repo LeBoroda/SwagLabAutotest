@@ -7,44 +7,44 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public final class ItemPage extends AbsPage {
-    private final String itemPicSelector = ".inventory_details_img";
-    private final String itemNameSelector = ".inventory_details_name";
-    private final String itemDescriptionSelector = ".inventory_details_desc";
-    private final String itemPriceSelector = ".inventory_details_price";
-    private final String returnToCatalogueButtonSelector = "#back-to-products";
-    private final String removeItemFromCartButtonSelector = "button[id*='remove']";
-    private final String addItemToCartButtonSelector = "button[id*='add-to-cart']";
-    private final String shoppingCartBadgeSelector = ".shopping_cart_badge";
+    private final By itemPicSelector = By.cssSelector(".inventory_details_img");
+    private final By itemNameSelector = By.cssSelector(".inventory_details_name");
+    private final By itemDescriptionSelector = By.cssSelector(".inventory_details_desc");
+    private final By itemPriceSelector = By.cssSelector(".inventory_details_price");
+    private final By returnToCatalogueButtonSelector = By.cssSelector("#back-to-products");
+    private final By removeItemFromCartButtonSelector = By.cssSelector("button[id*='remove']");
+    private final By addItemToCartButtonSelector = By.cssSelector("button[id*='add-to-cart']");
+    private final By shoppingCartBadgeSelector = By.cssSelector(".shopping_cart_badge");
 
     public ItemPage(final WebDriver driver, final String itemId) {
         super(driver, "/inventory-item.html?id=" + itemId);
     }
 
     public void returnToCatalogue() {
-        $(By.cssSelector(returnToCatalogueButtonSelector)).click();
+        $(returnToCatalogueButtonSelector).click();
     }
 
     public void compareInfo(final CatalogueTileComponent catalogueTileComponent) {
-        Assertions.assertEquals(catalogueTileComponent.getItemImageLink(), $(By.cssSelector(itemPicSelector)).getText());
-        Assertions.assertEquals(catalogueTileComponent.getItemName(), $(By.cssSelector(itemNameSelector)).getText());
-        Assertions.assertEquals(catalogueTileComponent.getItemDescription(), $(By.cssSelector(itemDescriptionSelector)).getText());
-        Assertions.assertEquals(catalogueTileComponent.getItemPrice(), $(By.cssSelector(itemPriceSelector)).getText());
+        Assertions.assertEquals(catalogueTileComponent.getItemImageLink(), $(itemPicSelector).getText());
+        Assertions.assertEquals(catalogueTileComponent.getItemName(), $(itemNameSelector).getText());
+        Assertions.assertEquals(catalogueTileComponent.getItemDescription(), $(itemDescriptionSelector).getText());
+        Assertions.assertEquals(catalogueTileComponent.getItemPrice(), $(itemPriceSelector).getText());
         returnToCatalogue();
     }
 
     public void compareWrongInfo(final CatalogueTileComponent catalogueTileComponent) {
-        Assertions.assertNotSame(catalogueTileComponent.getItemImageLink(), $(By.cssSelector(itemPicSelector)).getText());
-        Assertions.assertNotEquals(catalogueTileComponent.getItemName(), $(By.cssSelector(itemNameSelector)).getText());
-        Assertions.assertNotEquals(catalogueTileComponent.getItemDescription(), $(By.cssSelector(itemDescriptionSelector)).getText());
-        Assertions.assertNotEquals(catalogueTileComponent.getItemPrice(), $(By.cssSelector(itemPriceSelector)).getText());
+        Assertions.assertNotSame(catalogueTileComponent.getItemImageLink(), $(itemPicSelector).getText());
+        Assertions.assertNotEquals(catalogueTileComponent.getItemName(), $(itemNameSelector).getText());
+        Assertions.assertNotEquals(catalogueTileComponent.getItemDescription(), $(itemDescriptionSelector).getText());
+        Assertions.assertNotEquals(catalogueTileComponent.getItemPrice(), $(itemPriceSelector).getText());
         returnToCatalogue();
     }
 
     public void checkItemAddedToCart(final int itemsInCart) {
-        if ($(By.cssSelector(removeItemFromCartButtonSelector)).getText().equals("Remove")) {
-            Assertions.assertEquals(itemsInCart, Integer.parseInt($(By.cssSelector(shoppingCartBadgeSelector)).getText()));
+        if ($(removeItemFromCartButtonSelector).getText().equals("Remove")) {
+            Assertions.assertEquals(itemsInCart, Integer.parseInt($(shoppingCartBadgeSelector).getText()));
         } else {
-            Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(By.cssSelector(addItemToCartButtonSelector)))));
+            Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(addItemToCartButtonSelector))));
         }
         driver.navigate().back();
     }

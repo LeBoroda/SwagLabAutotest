@@ -10,13 +10,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class CatalogueTileComponent extends AbsComponent implements ILoggable {
-    private final String itemImgSelector = ".inventory_item_img";
-    private final String itemNameSelector = ".inventory_item_name";
-    private final String itemDescriptionSelector = ".inventory_item_desc";
-    private final String itemPriceSelector = ".inventory_item_price";
-    private final String itemIdSelector = "%s div[class='inventory_item_img'] a";
-    private final String addItemToCartSelector = "button[id*='add-to-cart']";
-    private final String removeItemFromCartSelector = "button[id*='remove']";
+    private final String itemImgSelectorTemplate = ".inventory_item_img";
+    private final String itemNameSelectorTemplate = ".inventory_item_name";
+    private final String itemDescriptionSelectorTemplate = ".inventory_item_desc";
+    private final String itemPriceSelectorTemplate = ".inventory_item_price";
+    private final String itemIdSelectorTemplate = "%s div[class='inventory_item_img'] a";
+    private final By addItemToCartSelector = By.cssSelector("button[id*='add-to-cart']");
+    private final By removeItemFromCartSelector = By.cssSelector("button[id*='remove']");
     private String itemImageLink;
     private String itemName;
     private String itemDescription;
@@ -27,18 +27,18 @@ public final class CatalogueTileComponent extends AbsComponent implements ILogga
     }
 
     public void getTileInfo(final String tileSelector) {
-        itemImageLink = $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemImgSelector)))).getText();
-        itemName = $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemNameSelector)))).getText();
-        itemDescription = $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemDescriptionSelector)))).getText();
-        itemPrice = $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemPriceSelector)))).getText();
+        itemImageLink = $(By.cssSelector(String.format("%s %s", tileSelector, itemImgSelectorTemplate))).getText();
+        itemName = $(By.cssSelector(String.format("%s %s", tileSelector, itemNameSelectorTemplate))).getText();
+        itemDescription = $(By.cssSelector(String.format("%s %s", tileSelector, itemDescriptionSelectorTemplate))).getText();
+        itemPrice = $(By.cssSelector(String.format("%s %s", tileSelector, itemPriceSelectorTemplate))).getText();
     }
 
     public void goToItemPage(final String tileSelector) {
-        $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemNameSelector)))).click();
+        $(By.cssSelector(String.format(String.format("%s %s", tileSelector, itemNameSelectorTemplate)))).click();
     }
 
     public String getItemId(final String tileSelector) {
-        String elementId = $(By.cssSelector(String.format(String.format(itemIdSelector, tileSelector)))).getCssValue("id");
+        String elementId = $(By.cssSelector(String.format(itemIdSelectorTemplate, tileSelector))).getCssValue("id");
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(elementId);
         if (matcher.find()) {
@@ -49,13 +49,13 @@ public final class CatalogueTileComponent extends AbsComponent implements ILogga
     }
 
     public boolean addItemToCartFromCatalogue() {
-        WebElement itemButton = $(By.cssSelector(addItemToCartSelector));
+        WebElement itemButton = $(addItemToCartSelector);
         String buttonText = itemButton.getText();
         if (buttonText.equals("Add to cart")) {
             Assertions.assertEquals("Add to cart", itemButton.getText());
             itemButton.click();
-            waiter.waitForVisibility(By.cssSelector(removeItemFromCartSelector));
-            Assertions.assertEquals("Remove", $(By.cssSelector(removeItemFromCartSelector)).getText());
+            waiter.waitForVisibility(removeItemFromCartSelector);
+            Assertions.assertEquals("Remove", $(removeItemFromCartSelector).getText());
             return true;
         } else {
             log().info("Item is not added to cart");

@@ -7,47 +7,47 @@ import org.openqa.selenium.WebElement;
 
 public final class CheckoutStepOnePage extends AbsPage {
 
-    private final String continueButtonSelector = ".submit-button";
-    private final String errorMessageContainerSelector = ".error-message-container";
-    private final String errorButtonSelector = ".error-button";
-    private final String firstNameFieldSelector = "#first-name";
-    private final String lastNameFieldSelector = "#last-name";
-    private final String postalCodeFieldSelector = "#postal-code";
+    private final By continueButtonSelector = By.cssSelector(".submit-button");
+    private final By errorMessageContainerSelector = By.cssSelector(".error-message-container");
+    private final By errorButtonSelector = By.cssSelector(".error-button");
+    private final By firstNameFieldSelector = By.cssSelector("#first-name");
+    private final By lastNameFieldSelector = By.cssSelector("#last-name");
+    private final By postalCodeFieldSelector = By.cssSelector("#postal-code");
 
     public CheckoutStepOnePage(final WebDriver driver) {
         super(driver, "/checkout-step-one.html");
     }
 
     public void getBuyerInfo() {
-        WebElement continueButton = $(By.cssSelector(continueButtonSelector));
+        WebElement continueButton = $(continueButtonSelector);
         continueButton.click();
-        Assertions.assertEquals("Error: First Name is required", $(By.cssSelector(errorMessageContainerSelector)).getText());
-        $(By.cssSelector(errorButtonSelector)).click();
-        $(By.cssSelector(firstNameFieldSelector)).sendKeys("User");
+        Assertions.assertEquals("Error: First Name is required", $(errorMessageContainerSelector).getText());
+        $(errorButtonSelector).click();
+        $(firstNameFieldSelector).sendKeys("User");
         continueButton.click();
-        Assertions.assertEquals("Error: Last Name is required", $(By.cssSelector(errorMessageContainerSelector)).getText());
-        $(By.cssSelector(errorButtonSelector)).click();
-        $(By.cssSelector(lastNameFieldSelector)).sendKeys("Name");
+        Assertions.assertEquals("Error: Last Name is required", $(errorMessageContainerSelector).getText());
+        $(errorButtonSelector).click();
+        $(lastNameFieldSelector).sendKeys("Name");
         continueButton.click();
-        Assertions.assertEquals("Error: Postal Code is required", $(By.cssSelector(errorMessageContainerSelector)).getText());
-        $(By.cssSelector(errorButtonSelector)).click();
-        $(By.cssSelector(postalCodeFieldSelector)).sendKeys("35800");
+        Assertions.assertEquals("Error: Postal Code is required", $(errorMessageContainerSelector).getText());
+        $(errorButtonSelector).click();
+        $(postalCodeFieldSelector).sendKeys("35800");
         continueButton.click();
         new CheckoutStepTwoPage(driver).checkAmountAndFinish();
     }
 
     public void getProblemBuyerInfo() {
-        WebElement continueButton = $(By.cssSelector(continueButtonSelector));
+        WebElement continueButton = $(continueButtonSelector);
         continueButton.click();
-        Assertions.assertEquals("Error: First Name is required", $(By.cssSelector(errorMessageContainerSelector)).getText());
-        $(By.cssSelector(errorButtonSelector)).click();
-        $(By.cssSelector(firstNameFieldSelector)).sendKeys("User");
+        Assertions.assertEquals("Error: First Name is required", $(errorMessageContainerSelector).getText());
+        $(errorButtonSelector).click();
+        $(firstNameFieldSelector).sendKeys("User");
         continueButton.click();
-        Assertions.assertEquals("Error: Last Name is required", $(By.cssSelector(errorMessageContainerSelector)).getText());
-        $(By.cssSelector(errorButtonSelector)).click();
-        $(By.cssSelector(lastNameFieldSelector)).sendKeys("Name");
+        Assertions.assertEquals("Error: Last Name is required", $(errorMessageContainerSelector).getText());
+        $(errorButtonSelector).click();
+        $(lastNameFieldSelector).sendKeys("Name");
         continueButton.click();
-        Assertions.assertEquals("Error: Last Name is required", $(By.cssSelector(errorMessageContainerSelector)).getText());
+        Assertions.assertEquals("Error: Last Name is required", $(errorMessageContainerSelector).getText());
     }
 
 }

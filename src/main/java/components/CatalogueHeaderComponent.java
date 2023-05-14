@@ -9,37 +9,36 @@ import org.openqa.selenium.WebElement;
 
 public final class CatalogueHeaderComponent extends AbsComponent implements ILoggable {
 
-    private final String headerTitleSelector = ".title";
-    private final String sortButtonSelector = "product_sort_container";
-    private final String shoppingCartButtonSelector = ".shopping_cart_link";
-    private final String itemsInCartCounterSelector = ".shopping_cart_badge";
+    private final By headerTitleSelector = By.cssSelector(".title");
+    private final By shoppingCartButtonSelector = By.cssSelector(".shopping_cart_link");
+    private final By itemsInCartCounterSelector = By.cssSelector(".shopping_cart_badge");
 
     public CatalogueHeaderComponent(final WebDriver driver) {
         super(driver);
     }
 
     public WebElement checkHeaderVisibility() {
-        return $(By.cssSelector(headerTitleSelector));
+        return $(headerTitleSelector);
     }
 
     public CatalogueHeaderComponent checkCartIcon(final int addedItems) {
-        int cartIconNumber = Integer.parseInt($(By.cssSelector(itemsInCartCounterSelector)).getText());
+        int cartIconNumber = Integer.parseInt($(itemsInCartCounterSelector).getText());
         Assertions.assertEquals(addedItems, cartIconNumber);
         return this;
     }
 
     public CatalogueHeaderComponent checkProblemCartIcon(final int addedItems) {
-        int cartIconNumber = Integer.parseInt($(By.cssSelector(itemsInCartCounterSelector)).getText());
+        int cartIconNumber = Integer.parseInt($(itemsInCartCounterSelector).getText());
         Assertions.assertNotEquals(addedItems, cartIconNumber);
         return this;
     }
 
     public void goToCart() {
-        $(By.cssSelector(shoppingCartButtonSelector)).click();
+        $(shoppingCartButtonSelector).click();
     }
 
     public int getCartIconNumber() {
-        return Integer.parseInt($(By.cssSelector(itemsInCartCounterSelector)).getText());
+        return Integer.parseInt($(itemsInCartCounterSelector).getText());
     }
 
 }

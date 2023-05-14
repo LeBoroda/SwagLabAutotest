@@ -9,8 +9,8 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public final class ShoppingCartPage extends AbsPage {
-    private final String cartItemSelector = ".cart_item";
-    private final String checkoutButton = "#checkout";
+    private final By cartItemSelector = By.cssSelector(".cart_item");
+    private final By checkoutButton = By.cssSelector("#checkout");
     private final CatalogueHeaderComponent catalogueHeaderComponent = new CatalogueHeaderComponent(driver);
 
     public ShoppingCartPage(final WebDriver driver) {
@@ -18,16 +18,16 @@ public final class ShoppingCartPage extends AbsPage {
     }
 
     public void checkCart() {
-        List<WebElement> cartItemsList = $$(By.cssSelector(cartItemSelector));
+        List<WebElement> cartItemsList = $$(cartItemSelector);
         Assertions.assertEquals(catalogueHeaderComponent.getCartIconNumber(), cartItemsList.size());
-        $(By.cssSelector(checkoutButton)).click();
+        $(checkoutButton).click();
         new CheckoutStepOnePage(driver).getBuyerInfo();
     }
 
     public void checkProblemCart() {
-        List<WebElement> cartItemsList = $$(By.cssSelector(cartItemSelector));
+        List<WebElement> cartItemsList = $$(cartItemSelector);
         Assertions.assertEquals(catalogueHeaderComponent.getCartIconNumber(), cartItemsList.size());
-        $(By.cssSelector(checkoutButton)).click();
+        $(checkoutButton).click();
         new CheckoutStepOnePage(driver).getProblemBuyerInfo();
     }
 

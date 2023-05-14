@@ -13,11 +13,11 @@ import java.util.List;
 
 public final class LoginBlockComponent extends AbsComponent implements ILoggable {
 
-    private final String usernameFieldIdSelector = "user-name";
-    private final String passwordFieldIdSelector = "password";
-    private final String loginButtonIdSelector = "login-button";
-    private final String errorMessageClassSelector = "error-message-container";
-    private final String errorButtonClassSelector = "error-button";
+    private final By usernameFieldSelector = By.cssSelector("#user-name");
+    private final By passwordFieldSelector = By.cssSelector("#password");
+    private final By loginButtonSelector = By.cssSelector("#login-button");
+    private final By errorMessageSelector = By.cssSelector(".error-message-container");
+    private final By errorButtonSelector = By.cssSelector(".error-button");
     private final List<String> badPasswords = Arrays.asList("", " ", "xx");
     private final List<String> badUsernames = Arrays.asList("xx", " ", "");
     private final LoginCredentialsBlockComponent lcb = new LoginCredentialsBlockComponent(driver);
@@ -30,17 +30,17 @@ public final class LoginBlockComponent extends AbsComponent implements ILoggable
         super(driver);
     }
 
-    private WebElement usernameField = $(By.id(usernameFieldIdSelector));
-    private WebElement passwordField = $(By.id(passwordFieldIdSelector));
-    private WebElement loginButton = $(By.id(loginButtonIdSelector));
+    private WebElement usernameField = $(usernameFieldSelector);
+    private WebElement passwordField = $(passwordFieldSelector);
+    private WebElement loginButton = $(loginButtonSelector);
 
     public LoginBlockComponent runBadPasswordLoginTest() {
         log().info("Running login test with wrong password");
         for (String username : usernames) {
             for (String badPassword : badPasswords) {
                 logIn(username, badPassword);
-                Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(By.className(errorMessageClassSelector)))));
-                $(By.className(errorButtonClassSelector)).click();
+                Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(errorMessageSelector))));
+                $(errorButtonSelector).click();
             }
         }
         return this;
@@ -51,8 +51,8 @@ public final class LoginBlockComponent extends AbsComponent implements ILoggable
         for (String badUsername : badUsernames) {
             for (String password : passwords) {
                 logIn(badUsername, password);
-                Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(By.className(errorMessageClassSelector)))));
-                $(By.className(errorButtonClassSelector)).click();
+                Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(errorMessageSelector))));
+                $(errorButtonSelector).click();
             }
         }
         return this;
@@ -60,25 +60,25 @@ public final class LoginBlockComponent extends AbsComponent implements ILoggable
 
     public LoginBlockComponent runEmptyFieldLoginTest() {
         log().info("Running login test with empty fields");
-        usernameField = $(By.id(usernameFieldIdSelector));
+        usernameField = $(usernameFieldSelector);
         usernameField.clear();
         usernameField.sendKeys("mamba");
-        passwordField = $(By.id(passwordFieldIdSelector));
+        passwordField = $(passwordFieldSelector);
         passwordField.clear();
-        loginButton = $(By.id(loginButtonIdSelector));
+        loginButton = $(loginButtonSelector);
         loginButton.click();
-        Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(By.className(errorMessageClassSelector)))));
-        $(By.className(errorButtonClassSelector)).click();
+        Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(errorMessageSelector))));
+        $(errorButtonSelector).click();
         driver.navigate().refresh();
-        usernameField = $(By.id(usernameFieldIdSelector));
+        usernameField = $(usernameFieldSelector);
         usernameField.clear();
-        passwordField = $(By.id(passwordFieldIdSelector));
+        passwordField = $(passwordFieldSelector);
         passwordField.clear();
         passwordField.sendKeys("namba5");
-        loginButton = $(By.id(loginButtonIdSelector));
+        loginButton = $(loginButtonSelector);
         loginButton.click();
-        Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(By.className(errorMessageClassSelector)))));
-        $(By.className(errorButtonClassSelector)).click();
+        Assertions.assertTrue(waiter.waitForCondition(ExpectedConditions.visibilityOf($(errorMessageSelector))));
+        $(errorButtonSelector).click();
         return this;
     }
 
@@ -86,8 +86,8 @@ public final class LoginBlockComponent extends AbsComponent implements ILoggable
         log().info("Running login test for locked out user");
         username = usernames.get(1);
         logIn(username, password);
-        Assertions.assertEquals("Epic sadface: Sorry, this user has been locked out.", $(By.className(errorMessageClassSelector)).getText());
-        $(By.className(errorButtonClassSelector)).click();
+        Assertions.assertEquals("Epic sadface: Sorry, this user has been locked out.", $(errorMessageSelector).getText());
+        $(errorButtonSelector).click();
         return this;
     }
 
@@ -136,13 +136,13 @@ public final class LoginBlockComponent extends AbsComponent implements ILoggable
     }
 
     private void logIn(final String username, final String password) {
-        usernameField = $(By.id(usernameFieldIdSelector));
+        usernameField = $(usernameFieldSelector);
         usernameField.clear();
         usernameField.sendKeys(username);
-        passwordField = $(By.id(passwordFieldIdSelector));
+        passwordField = $(passwordFieldSelector);
         passwordField.clear();
         passwordField.sendKeys(password);
-        loginButton = $(By.id(loginButtonIdSelector));
+        loginButton = $(loginButtonSelector);
         loginButton.click();
     }
 
